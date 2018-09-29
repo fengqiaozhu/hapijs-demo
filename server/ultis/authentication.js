@@ -23,7 +23,11 @@ module.exports = {
         }
 
         //Signature by jwt
-        const token = JWT.sign(users[username], config.tokenSecret)
+        let userInfo = users[username]
+        
+        //jwt cannot catain any sensitive user info
+        delete userInfo.password 
+        const token = JWT.sign(userInfo, config.tokenSecret)
         return {status:1,token:token}
     },
 
